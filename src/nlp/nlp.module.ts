@@ -6,6 +6,7 @@ import { NlpAdapterService } from './nlp-adapter.service';
 @Module({
   imports: [HttpModule],
   controllers: [NaturalLangProcessController],
-  providers: [NlpAdapterService]
+  providers: [NlpAdapterService],
+  exports: [NlpAdapterService]
 })
 export class NlpModule {}
