@@ -9,6 +9,10 @@ export class TwitterAdapterService {
   constructor() {}
   private readonly baseUrl = 'https://api.twitter.com/2/tweets';
 
+  /**
+   * Retrieves latest tweets by provided keyword
+   * @param keyword
+   */
   async searchTweetsByKeyword(req: PrimaryRequest): Promise<any> {
     const query = encodeURIComponent(req.text);
     const endpoint = `${this.baseUrl}/search/recent?query=${query}&max_results=2`;

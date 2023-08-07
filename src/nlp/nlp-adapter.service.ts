@@ -36,6 +36,10 @@ export class NlpAdapterService {
     })
   }
 
+  /**
+   * Analyze the provided text paragraph and decide whether it was a negative, positive or neutral sentiment
+   * @param req
+   */
   async analyzeSentiment(req: PrimaryRequest): Promise<any> {
     try {
       const response = await this.nlProcessingInstance.analyze({
@@ -53,6 +57,10 @@ export class NlpAdapterService {
     }
   }
 
+  /**
+   * Extract keywords of the provided text paragraph
+   * @param req
+   */
   async extractKeywords(req: PrimaryRequest): Promise<string[]> {
     try {
       const response = await this.nlProcessingInstance.analyze({
@@ -69,26 +77,37 @@ export class NlpAdapterService {
     }
   }
 
-  async detectLanguage(req: PrimaryRequest): Promise<Language> {
+  /**
+   * Detect language of the text and returns highest confidence language
+   * @param req
+   */
+  async detectLanguage(req: PrimaryRequest): Promise<any> {
     try {
       let maxVal: IdentifiedLanguage = null;
       const response = await this.langDetectInstance.identify({ text: req.text });
-      response.result.languages.forEach((data) => {
-        if (maxVal === null) {
-          maxVal = data;
-        }
 
-        if (data.confidence > maxVal.confidence) {
-          maxVal = data;
-        }
-      });
+      return response.result.languages.slice(0,3);
 
-      return { lang: maxVal.language, confidence: maxVal.confidence };
+      // response.result.languages.forEach((data) => {
+      //   if (maxVal === null) {
+      //     maxVal = data;
+      //   }
+
+        // if (data.confidence > maxVal.confidence) {
+        //   maxVal = data;
+        // }
+      // });
+
+      // return { lang: maxVal.language, confidence: maxVal.confidence };
     } catch (error) {
       throw error;
     }
   }
 
+  /**
+   * Identify the text language and translate into a source language
+   * @param req
+   */
   async translate(req: PrimaryRequest): Promise<Language> {
     try {
       const sourceLang = await this.detectLanguage({ text: req.text });

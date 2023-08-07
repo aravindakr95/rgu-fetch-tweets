@@ -7,6 +7,10 @@ import { NlpAdapterService } from '../nlp/nlp-adapter.service';
 export class WordCloudService {
   constructor(private nlpAdapterService: NlpAdapterService) {}
 
+  /**
+   * Pre process the text and find the no of occurrences based on the Watson provided keywords and generate word cloud
+   * @param req
+   */
   async generateWordCloud(req: PrimaryRequest): Promise<OccurrenceCount[]> {
     try {
       const { text } = req;
@@ -20,6 +24,11 @@ export class WordCloudService {
     }
   }
 
+  /**
+   * Pre process the text and extract keywords and remove stopwords
+   * @param text
+   * @private
+   */
   private preprocessText(text: string): string[] {
     // Tokenize the text into individual words
     const tokenizer = new natural.WordTokenizer();
@@ -32,6 +41,12 @@ export class WordCloudService {
     return filteredTokens;
   }
 
+  /**
+   * Count no of tokens identified as keywords
+   * @param tokens
+   * @param keywords
+   * @private
+   */
   private countOccurrences(tokens: string[], keywords: string[]): OccurrenceCount[] {
     const wordFrequencyList: any[] = [];
     // Count the occurrences of a specific word in the list of tokens

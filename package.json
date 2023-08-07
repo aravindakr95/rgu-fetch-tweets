@@ -28,6 +28,7 @@
     "axios": "^1.4.0",
     "canvas": "^2.11.2",
     "dotenv": "^16.3.1",
+    "exceljs": "^4.3.0",
     "ibm-watson": "^8.0.0",
     "natural": "^6.5.0",
     "reflect-metadata": "^0.1.13",
