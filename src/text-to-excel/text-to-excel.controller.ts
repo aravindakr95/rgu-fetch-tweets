@@ -23,8 +23,6 @@ export class TextToExcelController {
       worksheet.columns = [{ key: columnKey }];
       const fileNames = await fs.promises.readdir(req.folderPath);
 
-      console.log(fileNames)
-
       for (const fileName of fileNames) {
         if (fileName.endsWith('.txt')) {
           const filePath = path.join(req.folderPath, fileName);
@@ -33,8 +31,7 @@ export class TextToExcelController {
         }
       }
 
-      const res = await workbook.xlsx.writeFile(req.excelFilePath);
-      console.log(res)
+      await workbook.xlsx.writeFile(req.excelFilePath);
       console.log(`Excel file "${req.excelFilePath}" saved successfully.`);
 
       return { status: true, statusCode: 200, data: null, internalMessage: 'Text to Excel conversion is completed and saved' };
