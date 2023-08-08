@@ -1,6 +1,9 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { NlpAdapterService } from '../nlp/nlp-adapter.service';
-import { PrimaryRequest, WordCloudResponse } from '../models';
+import {
+  PrimaryRequest,
+  WordCloudResponse
+} from '../models';
 import { WordCloudService } from './word-cloud.service';
 
 @Controller('pre-process')

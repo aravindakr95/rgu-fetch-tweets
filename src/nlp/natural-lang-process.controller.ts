@@ -66,6 +66,5 @@ export class NaturalLangProcessController {
     } catch (error) {
       console.log(error);
     }
-
   }
 }
