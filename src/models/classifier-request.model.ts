@@ -4,6 +4,7 @@ export class ClassifierRequest {
   predictData: Classifier[];
   classification?: ClassifierType
   path?: string;
+  isPos?: boolean;
 }
 
 export class Classifier {

@@ -57,16 +57,21 @@ export class ClassificationService {
 
   public async trainClassifierAndPredict(req: ClassifierRequest): Promise<any> {
     try {
-      const positivePath = `${req.path}/pos`;
-      const negativePath = `${req.path}/neg`;
-      const positiveTexts: Classifier[] = await this.textToConvertService.textToArray(
-          positivePath, true);
-      const negativeTexts: Classifier[] = await this.textToConvertService.textToArray(
-          negativePath, false);
+      let texts = null;
+      if (req.isPos) {
+        const positivePath = `${req.path}/pos`;
+        const negativePath = `${req.path}/neg`;
+        const positiveTexts: Classifier[] = await this.textToConvertService.textToArray(
+            positivePath, true);
+        const negativeTexts: Classifier[] = await this.textToConvertService.textToArray(
+            negativePath, false);
 
-      const texts = [...positiveTexts, ...negativeTexts];
+        texts = [...positiveTexts, ...negativeTexts];
 
-      console.log(texts)
+      } else {
+        texts = await this.textToConvertService.textToArray(
+            req.path, true);
+      }
 
       this.calculateIDF(texts);
       const idf = JSON.parse(fs.readFileSync('outputs/idf.json', 'utf-8'));
