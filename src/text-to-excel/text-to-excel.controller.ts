@@ -20,7 +20,7 @@ export class TextToExcelController {
       const columnKey = req.columnName.toLowerCase();
       rimraf.sync(req.excelFilePath);
 
-      worksheet.columns = [{ header: req.columnName, key: columnKey }];
+      worksheet.columns = [{ key: columnKey }];
       const fileNames = await fs.promises.readdir(req.folderPath);
 
       console.log(fileNames)
